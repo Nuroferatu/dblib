@@ -10,6 +10,10 @@
 // | Copyright (C)2018 SoftwareToolsFactory                                  |
 // |                   http://softwaretoolsfactory.com                       |
 // '-------------------------------------------------------------------------'
+// ----= Change log =---------------------------------------------------------
+//    2. 2018.07.26, 20:00 Vasile Filipescu	Adding commentaries
+//    1. 2019.07.24, 21:00 Nuroferatu   	[+] Initial
+// ---------------------------------------------------------------------------
 #pragma once
 #ifndef __STF_IDBDRIVER_H__
 #define __STF_IDBDRIVER_H__
@@ -18,20 +22,24 @@
 #include "sqlite3.h"
 
 namespace stf {
-
-// Interface - must have virtual destructor
-// #1 Must be virtual
-// #2 Must be pure (=0)
-// #3 Destructor must be virtual
+/*
+ * 	@brief	IDBDriver
+ * 			Interface for providing connection to database */
 class IDBDriver {
 public:
+	/*##-Dtor-	*/
     virtual ~IDBDriver() = default;
-
+    /*##-1-		Open connection to db function
+     *@param	const string & --> name for connecting to db
+     *@return	bool	(0--> db opened OK, 1--> db open error	*/
     virtual bool    open( const std::string& connectionStr) = 0;
+    /*##-2-		Close connection to db function
+     *@param	none
+     *@return	none	*/
     virtual void    close( void ) = 0;
 };
 
-} // namespace stf
+}/*namespace stf*/
 
 #endif /* ndef __STF_IDBDRIVER_H__ */
 // vim: ts=4:sw=4:et:nowrap
