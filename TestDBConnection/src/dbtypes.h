@@ -11,34 +11,51 @@
 // |                   http://softwaretoolsfactory.com                       |
 // '-------------------------------------------------------------------------'
 // ----= Change log =---------------------------------------------------------
-//    2. 2018.07.26, 20:00 Vasile 		[=] Adding commentaries
-//    1. 2019.07.24, 21:00 Nuroferatu   [+] Initial
+//    1. 2019.07.26, 23:00 Vasile	[+] Initial
 // ---------------------------------------------------------------------------
 #pragma once
-#ifndef __STF_IDBDRIVER_H__
-#define __STF_IDBDRIVER_H__
+#ifndef __STF_DB_TYPES_H__
+#define __STF_DB_TYPES_H__
 // Includes ------------------------------------------------------------------
-#include <iostream>
-// Namespace def--------------------------------------------------------------
+#include "idbdriver.h"
+#include "sqlite3.h"
+// Namespace def -------------------------------------------------------------
 namespace stf {
 /* ---------------------------------------------------------------------------
- * 	@brief	IDBDriver
- * 			Interface for providing connection to database */
-class IDBDriver {
+ * @brief	Class SQLIteDBDriver
+ * 			Implements IDBDriver for providing an object to db of type SQLite*/
+class SQLiteDBDriver : public IDBDriver {
 public:
-    virtual ~IDBDriver() = default;
-    /*	##-1-		Open connection to DB
-     *	@param		const string & --> name for connecting to db
-     *	@return		bool	(0--> db opened OK, 1--> db open error	*/
-    virtual bool    open( const std::string& ) = 0;
-    /*	##-2-		Close connection to db function
-     *	@param	none
-     *	@return	none	*/
-    virtual void    close( void ) = 0;
+    SQLiteDBDriver();
+    ~SQLiteDBDriver();
+    /*##-1-	*/
+    virtual bool open( const std::string& ) override;
+    /*##-2-	*/
+    virtual void close( void ) override;
+private :
+    sqlite3 * db;
+};
+/* ---------------------------------------------------------------------------
+ * @brief	Class MySQLDBDriver
+ * 			Implements IDBDriver for providing an object to db of type MySQL*/
+class MySQLDBDriver : public IDBDriver {
+public:
+    MySQLDBDriver();
+    ~MySQLDBDriver();
+    /*##-1-	*/
+    virtual bool open( const std::string& ) override;
+    /*##-2-	*/
+    virtual void close( void ) override;
+};
+/* ---------------------------------------------------------------------------
+ * @brief	Enum class DBType
+ * 			Providing types of db connection*/
+enum class DBType {
+    MYSQL, SQLITE
 };
 
 }/*namespace stf*/
 
-#endif /* ndef __STF_IDBDRIVER_H__ */
+#endif /* ndef __STF_DB_TYPES_H__ */
 // vim: ts=4:sw=4:et:nowrap
 /* EOF */

@@ -11,34 +11,28 @@
 // |                   http://softwaretoolsfactory.com                       |
 // '-------------------------------------------------------------------------'
 // ----= Change log =---------------------------------------------------------
-//    2. 2018.07.26, 20:00 Vasile 		[=] Adding commentaries
+//    2. 2018.07.26, 23:00 Vasile 		[=] Switched the class in new file
 //    1. 2019.07.24, 21:00 Nuroferatu   [+] Initial
 // ---------------------------------------------------------------------------
-#pragma once
-#ifndef __STF_IDBDRIVER_H__
-#define __STF_IDBDRIVER_H__
 // Includes ------------------------------------------------------------------
-#include <iostream>
-// Namespace def--------------------------------------------------------------
-namespace stf {
+#include "dbdriver.h"
+// Namespaces ----------------------------------------------------------------
+using namespace stf;
 /* ---------------------------------------------------------------------------
- * 	@brief	IDBDriver
- * 			Interface for providing connection to database */
-class IDBDriver {
-public:
-    virtual ~IDBDriver() = default;
-    /*	##-1-		Open connection to DB
-     *	@param		const string & --> name for connecting to db
-     *	@return		bool	(0--> db opened OK, 1--> db open error	*/
-    virtual bool    open( const std::string& ) = 0;
-    /*	##-2-		Close connection to db function
-     *	@param	none
-     *	@return	none	*/
-    virtual void    close( void ) = 0;
-};
+ * @brief	Class DBDriver	*/
+IDBDriver* DBDriver::getDriver( DBType type ){
 
-}/*namespace stf*/
+	IDBDriver* driver = nullptr;
 
-#endif /* ndef __STF_IDBDRIVER_H__ */
-// vim: ts=4:sw=4:et:nowrap
-/* EOF */
+    switch (type) {
+        case DBType::SQLITE:
+        	driver = new SQLiteDBDriver();
+        	break;
+        case DBType::MYSQL:
+        	driver = new MySQLDBDriver();
+        	break;
+    }
+
+    return driver;
+}
+
