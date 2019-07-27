@@ -6,32 +6,32 @@
 // |                                  '-..-'                                 |
 // | Desc:     DBDriver interface                                            |
 // | By:       Nuroferatu - https://github.com/Nuroferatu                    |
-// |           Vasile - https://github.com/Vasile0091                        |
 // |                                                                         |
 // | Copyright (C)2018 SoftwareToolsFactory                                  |
 // |                   http://softwaretoolsfactory.com                       |
 // '-------------------------------------------------------------------------'
-#include "dbdriver.h"
+#pragma once
+#ifndef __STF_IDBDRIVER_H__
+#define __STF_IDBDRIVER_H__
 
-using namespace stf;
+#include <string>
 
-/* ---------------------------------------------------------------------------
- * @brief   Main
- */
-int main() {
-    const std::string dbName = "testDB.db"; //db to be connected to
+namespace stf {
 
-    std::unique_ptr<DBDriver>  dbDriverFactory = std::make_unique<DBDriver>();   //create a new connection object "factory"
-    std::unique_ptr<IDBDriver> dbDriver = dbDriverFactory->getDriver( DBDriver::DBType::SQLITE );          //return a SQLite db type
+// Interface - must have virtual destructor
+// #1 Must be virtual
+// #2 Must be pure (=0)
+// #3 Destructor must be virtual
+class IDBDriver {
+public:
+    virtual ~IDBDriver() = default;
 
-    if (dbDriver) {
-        dbDriver->open( dbName );  //try to open the connection to SQLite db
+    virtual bool    open( const std::string& connectionStr ) = 0;
+    virtual void    close( void ) = 0;
+};
 
-        // Execute some SQL Commands
+} // namespace stf
 
-        dbDriver->close();
-    }
-    return 0;
-} // end Main
+#endif /* ndef __STF_IDBDRIVER_H__ */
 // vim: ts=4:sw=4:et:nowrap
 /* EOF */

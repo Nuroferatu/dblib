@@ -16,14 +16,12 @@
 
 using namespace stf;
 
-IDBDriver* DBDriver::getDriver( DBType type ) {
-    IDBDriver* driver = nullptr;
-
+std::unique_ptr<IDBDriver> DBDriver::getDriver( DBType type ) {
     switch (type) {
-        case DBType::SQLITE: driver = new SQLiteDBDriver(); break;
-        case DBType::MYSQL: driver = new MySQLDBDriver(); break;
+        case DBType::SQLITE: return std::make_unique<SQLiteDBDriver>();
+        case DBType::MYSQL:  return std::make_unique<MySQLDBDriver>();
     }
-    return driver;
+    //throw std::runtime_exception
 }
 
 // vim: ts=4:sw=4:et:nowrap

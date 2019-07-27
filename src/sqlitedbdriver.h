@@ -27,14 +27,14 @@ public:
     SQLiteDBDriver();
     ~SQLiteDBDriver();
 
-    virtual bool open( const std::string& ) override;
+    virtual bool open( const std::string& connectionStr ) override;
     virtual void close( void ) override;
 
-private:
-    sqlite3*    db = nullptr;
+//private:
+    sqlite3* db = nullptr;
 };
 
-} // namespace stf
+}; // namespace stf
 
 #endif /* ndef __STF_SQLITEDBDRIVER_H__ */
 // vim: ts=4:sw=4:et:nowrap

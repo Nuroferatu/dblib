@@ -26,11 +26,11 @@ public:
     MySQLDBDriver();
     ~MySQLDBDriver();
 
-    virtual bool open( const std::string& ) override;
+    virtual bool open( const std::string& connectionStr ) override;
     virtual void close( void ) override;
 };
 
-} // namespace stf
+}; // namespace stf
 
 #endif /* ndef __STF_MYSQLDBDRIVER_H__ */
 

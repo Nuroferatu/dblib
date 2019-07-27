@@ -15,6 +15,7 @@
 #define __STF_DBDRIVER_H__
 
 #include "idbdriver.h"
+#include <memory>
 
 namespace stf {
 
@@ -25,10 +26,10 @@ class DBDriver {
 public:
     enum class DBType { SQLITE, MYSQL };
 
-    IDBDriver* getDriver( DBType );
+    std::unique_ptr<IDBDriver> getDriver( DBType databaseType );
 };
 
-} // namespace stf
+}; // namespace stf
 
 #endif /* ndef __STF_DB_TYPES_H__ */
 // vim: ts=4:sw=4:et:nowrap
