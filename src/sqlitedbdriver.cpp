@@ -10,36 +10,38 @@
 // | Copyright (C)2018 SoftwareToolsFactory                                  |
 // |                   http://softwaretoolsfactory.com                       |
 // '-------------------------------------------------------------------------'
-#pragma once
-#ifndef __STF_IDBDRIVER_H__
-#define __STF_IDBDRIVER_H__
+#include "sqlitedbdriver.h"
+#include <iostream>
 
-#include <string>
+using namespace stf;
 
-namespace stf {
+SQLiteDBDriver::SQLiteDBDriver() {
+    std::cout << "SQLIteDBDriver::cTor" << std::endl;
+    db = nullptr;
+}
 
-/* ---------------------------------------------------------------------------
- *  @brief  IDBDriver
- *          Interface for providing connection to database
- */
-class IDBDriver {
-public:
-    virtual ~IDBDriver() = default;
+SQLiteDBDriver::~SQLiteDBDriver() {
+    std::cout << "SQLIteDBDriver::dTor" << std::endl;
+}
 
-    /*  Close connection to db function
-     *  @param  none
-     *  @return none
-     */
-    virtual void    close( void ) = 0;
+bool SQLiteDBDriver::open( const std::string& connectionStr){
 
-    /*  Open connection to DB
-     *  @param      const string & --> name for connecting to db
-     *  @return     bool    (0--> db opened OK, 1--> db open error	*/
-    virtual bool    open( const std::string& ) = 0;
-};
+    bool dbOpened = false;
 
-} // namespace stf
+    //TODO: sqlite3_open_v2(connectionStr.c_str(), &db,SQLITE_ACCESS_READWRITE, nullptr)
+    if(sqlite3_open(connectionStr.c_str(), &db) != SQLITE_OK) {
+        std::cout << "Database " << connectionStr << " was NOT opened" << std::endl;
+    }
+    else {
+        std::cout << "Database " << connectionStr << " was opened" << std::endl;
+        dbOpened = true;
+    }
+    return dbOpened;
+}
 
-#endif /* ndef __STF_IDBDRIVER_H__ */
+void SQLiteDBDriver::SQLiteDBDriver::close( void ) {
+    std::cout << "SQLIteDBDriver::close" << std::endl;
+}
+
 // vim: ts=4:sw=4:et:nowrap
 /* EOF */

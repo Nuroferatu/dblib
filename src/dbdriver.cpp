@@ -10,29 +10,21 @@
 // | Copyright (C)2018 SoftwareToolsFactory                                  |
 // |                   http://softwaretoolsfactory.com                       |
 // '-------------------------------------------------------------------------'
-// ----= Change log =---------------------------------------------------------
-//    2. 2018.07.26, 23:00 Vasile 		[=] Switched the class in new file
-//    1. 2019.07.24, 21:00 Nuroferatu   [+] Initial
-// ---------------------------------------------------------------------------
-// Includes ------------------------------------------------------------------
 #include "dbdriver.h"
-// Namespaces ----------------------------------------------------------------
-using namespace stf;
-/* ---------------------------------------------------------------------------
- * @brief	Class DBDriver	*/
-IDBDriver* DBDriver::getDriver( DBType type ){
+#include "sqlitedbdriver.h"
+#include "mysqldbdriver.h"
 
-	IDBDriver* driver = nullptr;
+using namespace stf;
+
+IDBDriver* DBDriver::getDriver( DBType type ) {
+    IDBDriver* driver = nullptr;
 
     switch (type) {
-        case DBType::SQLITE:
-        	driver = new SQLiteDBDriver();
-        	break;
-        case DBType::MYSQL:
-        	driver = new MySQLDBDriver();
-        	break;
+        case DBType::SQLITE: driver = new SQLiteDBDriver(); break;
+        case DBType::MYSQL: driver = new MySQLDBDriver(); break;
     }
-
     return driver;
 }
 
+// vim: ts=4:sw=4:et:nowrap
+/* EOF */

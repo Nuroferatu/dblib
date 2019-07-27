@@ -151,10 +151,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dbdriver.cpp" />
     <ClCompile Include="dblib.cpp" />
+    <ClCompile Include="mysqldbdriver.cpp" />
+    <ClCompile Include="sqlite3.c" />
+    <ClCompile Include="sqlitedbdriver.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dbdriver.h" />
     <ClInclude Include="idbdriver.h" />
+    <ClInclude Include="mysqldbdriver.h" />
+    <ClInclude Include="sqlite3.h" />
+    <ClInclude Include="sqlitedbdriver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

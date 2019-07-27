@@ -10,36 +10,29 @@
 // | Copyright (C)2018 SoftwareToolsFactory                                  |
 // |                   http://softwaretoolsfactory.com                       |
 // '-------------------------------------------------------------------------'
-#pragma once
-#ifndef __STF_IDBDRIVER_H__
-#define __STF_IDBDRIVER_H__
+#include "mysqldbdriver.h"
+#include <iostream>
 
-#include <string>
-
-namespace stf {
+using namespace stf;
 
 /* ---------------------------------------------------------------------------
- *  @brief  IDBDriver
- *          Interface for providing connection to database
- */
-class IDBDriver {
-public:
-    virtual ~IDBDriver() = default;
+ * @brief   Class MySQLDBDriver*/
+MySQLDBDriver::MySQLDBDriver() {
+    std::cout << "MySQLDBDriver::cTor" << std::endl;
+}
 
-    /*  Close connection to db function
-     *  @param  none
-     *  @return none
-     */
-    virtual void    close( void ) = 0;
+MySQLDBDriver::~MySQLDBDriver() {
+    std::cout << "MySQLDBDriver::dTor" << std::endl;
+}
 
-    /*  Open connection to DB
-     *  @param      const string & --> name for connecting to db
-     *  @return     bool    (0--> db opened OK, 1--> db open error	*/
-    virtual bool    open( const std::string& ) = 0;
-};
+bool MySQLDBDriver::open( const std::string& connectionStr) {
+    std::cout << "MySQLDBDriver::open" << std::endl;
+    return true;
+}
 
-} // namespace stf
+void MySQLDBDriver::close( void ) {
+    std::cout << "MySQLDBDriver::close" << std::endl;
+}
 
-#endif /* ndef __STF_IDBDRIVER_H__ */
 // vim: ts=4:sw=4:et:nowrap
 /* EOF */

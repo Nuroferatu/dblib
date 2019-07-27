@@ -4,42 +4,38 @@
 // .------------------------------ooO(_ /\ _)Ooo-----------------------------.
 // |                                  |====|                                 |
 // |                                  '-..-'                                 |
-// | Desc:     DBDriver interface                                            |
+// | Desc:     SQLiteDBDriver implementation                                 |
 // | By:       Nuroferatu - https://github.com/Nuroferatu                    |
 // |                                                                         |
 // | Copyright (C)2018 SoftwareToolsFactory                                  |
 // |                   http://softwaretoolsfactory.com                       |
 // '-------------------------------------------------------------------------'
 #pragma once
-#ifndef __STF_IDBDRIVER_H__
-#define __STF_IDBDRIVER_H__
+#ifndef __STF_SQLITEDBDRIVER_H__
+#define __STF_SQLITEDBDRIVER_H__
 
-#include <string>
+#include "idbdriver.h"
+#include "sqlite3.h"
 
 namespace stf {
 
 /* ---------------------------------------------------------------------------
- *  @brief  IDBDriver
- *          Interface for providing connection to database
- */
-class IDBDriver {
+ * @brief   Class SQLIteDBDriver
+ *          Implements IDBDriver for providing an object to db of type SQLite*/
+class SQLiteDBDriver : public IDBDriver {
 public:
-    virtual ~IDBDriver() = default;
+    SQLiteDBDriver();
+    ~SQLiteDBDriver();
 
-    /*  Close connection to db function
-     *  @param  none
-     *  @return none
-     */
-    virtual void    close( void ) = 0;
+    virtual bool open( const std::string& ) override;
+    virtual void close( void ) override;
 
-    /*  Open connection to DB
-     *  @param      const string & --> name for connecting to db
-     *  @return     bool    (0--> db opened OK, 1--> db open error	*/
-    virtual bool    open( const std::string& ) = 0;
+private :
+    sqlite3*    db;
 };
 
 } // namespace stf
 
-#endif /* ndef __STF_IDBDRIVER_H__ */
+#endif /* ndef __STF_SQLITEDBDRIVER_H__ */
 // vim: ts=4:sw=4:et:nowrap
 /* EOF */
