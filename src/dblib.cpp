@@ -15,24 +15,29 @@
 
 using namespace stf;
 
+
+
+
 /* ---------------------------------------------------------------------------
  * @brief   Main
  */
-int main()
-{
+int main() {
     const std::string dbName = "testDB.db"; //db to be connected to
-    IDBDriver *dbDriver = nullptr;
-    DBDriver *dbDriverFactory = nullptr;
+    IDBDriver* dbDriver = nullptr;
+    DBDriver* dbDriverFactory = nullptr;
 
-    dbDriverFactory = new DBDriver();	//create a new connection object "factory"
+    dbDriverFactory = new DBDriver();   //create a new connection object "factory"
+    dbDriver = dbDriverFactory->getDriver( DBDriver::DBType::SQLITE );  //return a SQLite db type
 
-    dbDriver = dbDriverFactory->getDriver( DBDriver::DBType::SQLITE);  //return a SQLite db type
+    if (dbDriver) {
+        dbDriver->open( dbName );  //try to open the connection to SQLite db
 
-    if(dbDriver){
-        dbDriver->open(dbName);  //try to open the connection to SQLite db
+        // Execute some SQL Commands
+
+        dbDriver->close();
     }
-
     return 0;
+
 } // end Main
 
 // vim: ts=4:sw=4:et:nowrap

@@ -19,8 +19,8 @@
 namespace stf {
 
 /* ---------------------------------------------------------------------------
- * @brief	Class MySQLDBDriver
- * 			Implements IDBDriver for providing an object to db of type MySQL*/
+ * @brief   Class MySQLDBDriver
+ *          Implements IDBDriver for providing an object to db of type MySQL*/
 class MySQLDBDriver : public IDBDriver {
 public:
     MySQLDBDriver();

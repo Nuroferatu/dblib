@@ -30,8 +30,8 @@ public:
     virtual bool open( const std::string& ) override;
     virtual void close( void ) override;
 
-private :
-    sqlite3*    db;
+private:
+    sqlite3*    db = nullptr;
 };
 
 } // namespace stf
