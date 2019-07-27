@@ -17,19 +17,16 @@ using namespace stf;
 
 SQLiteDBDriver::SQLiteDBDriver() {
     std::cout << "SQLIteDBDriver::cTor" << std::endl;
-    db = nullptr;
 }
 
 SQLiteDBDriver::~SQLiteDBDriver() {
     std::cout << "SQLIteDBDriver::dTor" << std::endl;
 }
 
-bool SQLiteDBDriver::open( const std::string& connectionStr){
-
+bool SQLiteDBDriver::open( const std::string& connectionStr ) {
     bool dbOpened = false;
 
-    //TODO: sqlite3_open_v2(connectionStr.c_str(), &db,SQLITE_ACCESS_READWRITE, nullptr)
-    if(sqlite3_open(connectionStr.c_str(), &db) != SQLITE_OK) {
+    if (sqlite3_open_v2( connectionStr.c_str(), &db, SQLITE_ACCESS_READWRITE, nullptr ) != SQLITE_OK) {
         std::cout << "Database " << connectionStr << " was NOT opened" << std::endl;
     }
     else {
