@@ -1,66 +1,43 @@
-// dblib.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
-#include "idbdriver.h"
-
+//                                    .-""-.
+//                                   / _  _ \
+//                                   |(_)(_)|
+// .------------------------------ooO(_ /\ _)Ooo-----------------------------.
+// |                                  |====|                                 |
+// |                                  '-..-'                                 |
+// | Desc:     DBDriver interface                                            |
+// | By:       Nuroferatu - https://github.com/Nuroferatu                    |
+// |                                                                         |
+// | Copyright (C)2018 SoftwareToolsFactory                                  |
+// |                   http://softwaretoolsfactory.com                       |
+// '-------------------------------------------------------------------------'
+// ----= Change log =---------------------------------------------------------
+//    3. 2018.07.26, 24:00 Vasile		[-] Clean main lib file (moving classes
+//												in own files)
+//	  2. 2018.07.26, 20:00 Vasile 		[+] SQLIteDBDriver::open()--> to test
+//											connection to a sqlite db
+//    1. 2019.07.24, 21:00 Nuroferatu   [+] Initial
+// ---------------------------------------------------------------------------
+// Includes ------------------------------------------------------------------
+#include "dbdriver.h"
+// Namespaces ----------------------------------------------------------------
 using namespace stf;
-
-class SQLIteDBDriver : public IDBDriver {
-public:
-    SQLIteDBDriver() {
-        std::cout << "SQLIteDBDriver::cTor" << std::endl;
-    }
-
-    ~SQLIteDBDriver() {
-        std::cout << "SQLIteDBDriver::dTor" << std::endl;
-    }
-
-    virtual bool open( const std::string& connectionStr ) override {
-        std::cout << "SQLIteDBDriver::open" << std::endl;
-        return true;
-    }
-
-    virtual void close( void ) override {
-        std::cout << "SQLIteDBDriver::close" << std::endl;
-    }
-};
-
-class MySQLDBDriver : public IDBDriver {
-    char* buffer;
-
-public:
-    MySQLDBDriver() {
-        std::cout << "MySQLDBDriver::cTor" << std::endl;
-    }
-
-    ~MySQLDBDriver() {
-        std::cout << "MySQLDBDriver::dTor" << std::endl;
-    }
-
-    virtual bool open( const std::string& connectionStr ) override {
-        std::cout << "MySQLDBDriver::open" << std::endl;
-        return true;
-    }
-
-    virtual void close( void ) override {
-        std::cout << "MySQLDBDriver::close" << std::endl;
-    }
-};
-
-//enum class DBType {
-//    MYSQL, SQLITE;
-//};
-//
-//IDBDriver* DBDriver::getDriver( DBType type, const std::string& connectionString ) {
-//
-//    IDBDriver* driver = nullptr;
-//    switch (type) {
-//        case DBType::SQLITE: return new SQLIteDBDriver( connectionString );
-//        case DBType::MYSQL: return new MySQLDBDriver( connectionString );
-//    }
-//}
-
+/* ---------------------------------------------------------------------------
+ * @brief	Main
+ * */
 int main()
 {
-}
+	const std::string dbName = "testDB.db";	//db to be connected to
+	IDBDriver *dbDriver = nullptr;
+	DBDriver *dbDriverFactory = nullptr;
+
+	dbDriverFactory = new DBDriver();	//create a new connection object "factory"
+
+	dbDriver = dbDriverFactory->getDriver(DBType::SQLITE);	//return a SQLite db type
+
+	if(dbDriver){
+		dbDriver->open(dbName);  //try to open the connection to SQLite db
+	}
+
+	return 0;
+
+}//end Main
