@@ -329,7 +329,4 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 /.metadata/
-/TestDBConnection/Debug
-/TestDBConnection/.settings
-/TestDBConnection/.cproject
-/TestDBConnection/.project
+/TestDB/
