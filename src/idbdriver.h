@@ -26,8 +26,9 @@ class IDBDriver {
 public:
     virtual ~IDBDriver() = default;
 
-    virtual bool    open( const std::string& connectionStr ) = 0;
-    virtual void    close( void ) = 0;
+    virtual bool open( const std::string& connectionStr ) = 0;
+    virtual void execute( const std::string& exec_statement ) = 0;
+    virtual void close( void ) = 0;
 };
 
 }; // namespace stf

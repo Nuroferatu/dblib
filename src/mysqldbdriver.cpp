@@ -34,5 +34,8 @@ void MySQLDBDriver::close( void ) {
     std::cout << "MySQLDBDriver::close" << std::endl;
 }
 
+void MySQLDBDriver::execute( const std::string& exec_statement ){
+	// do stuff here
+}
 // vim: ts=4:sw=4:et:nowrap
 /* EOF */

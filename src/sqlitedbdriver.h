@@ -28,7 +28,10 @@ public:
     ~SQLiteDBDriver();
 
     virtual bool open( const std::string& connectionStr ) override;
+    virtual void execute( const std::string& exec_statement ) override;
     virtual void close( void ) override;
+
+    static int callback( void* db, int argc, char** colValues, char** colName );
 
 //private:
     sqlite3* db = nullptr;

@@ -25,7 +25,6 @@ SQLiteDBDriver::~SQLiteDBDriver() {
 
 bool SQLiteDBDriver::open( const std::string& connectionStr ) {
     bool dbOpened = false;
-
     if (sqlite3_open_v2( connectionStr.c_str(), &db, SQLITE_ACCESS_READWRITE, nullptr ) != SQLITE_OK) {
         std::cout << "Database " << connectionStr << " was NOT opened" << std::endl;
     }
@@ -36,9 +35,27 @@ bool SQLiteDBDriver::open( const std::string& connectionStr ) {
     return dbOpened;
 }
 
-void SQLiteDBDriver::SQLiteDBDriver::close( void ) {
+void SQLiteDBDriver::close( void ) {
     std::cout << "SQLIteDBDriver::close" << std::endl;
+    sqlite3_close(db);
 }
 
+int SQLiteDBDriver::callback( void* db, int argc, char** colValues, char** colNames ){
+
+	for( int i = 0; i < argc; ++i){
+		std::cout << colNames[i] << ": " << colValues[i] ? colValues[i] : "null";
+	}
+	std::cout << std::endl;
+
+	return 0;
+}
+
+void SQLiteDBDriver::execute( const std::string& exec_statement ){
+
+	std::cout << "SQLIteDBDriver::execute " << std::endl;
+	char** errMsg;
+	sqlite3_exec( db, exec_statement.c_str(), callback, nullptr, errMsg );
+
+}
 // vim: ts=4:sw=4:et:nowrap
 /* EOF */

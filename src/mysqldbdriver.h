@@ -27,6 +27,7 @@ public:
     ~MySQLDBDriver();
 
     virtual bool open( const std::string& connectionStr ) override;
+    virtual void execute( const std::string& exec_statement ) override;
     virtual void close( void ) override;
 };
 
