@@ -12,6 +12,7 @@
 // |                   http://softwaretoolsfactory.com                       |
 // '-------------------------------------------------------------------------'
 #include "dbdriver.h"
+#include <iostream>
 
 using namespace stf;
 
@@ -24,13 +25,14 @@ int main() {
     std::unique_ptr<DBDriver>  dbDriverFactory = std::make_unique<DBDriver>();   //create a new connection object "factory"
     std::unique_ptr<IDBDriver> dbDriver = dbDriverFactory->getDriver( DBDriver::DBType::SQLITE );          //return a SQLite db type
 
-    if (dbDriver) {
-        dbDriver->open( dbName );  //try to open the connection to SQLite db
+    try{
+        dbDriver->open( dbName );
         dbDriver->execute("select * from genres");
-        // Execute some SQL Commands
-
         dbDriver->close();
+    }catch(std::string& errMsg){
+        std::cout << errMsg;
     }
+
     return 0;
 } // end Main
 // vim: ts=4:sw=4:et:nowrapd

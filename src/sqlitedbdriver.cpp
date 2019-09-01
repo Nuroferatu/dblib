@@ -24,15 +24,11 @@ SQLiteDBDriver::~SQLiteDBDriver() {
 }
 
 bool SQLiteDBDriver::open( const std::string& connectionStr ) {
-    bool dbOpened = false;
-    if (sqlite3_open_v2( connectionStr.c_str(), &db, SQLITE_ACCESS_READWRITE, nullptr ) != SQLITE_OK) {
-        std::cout << "Database " << connectionStr << " was NOT opened" << std::endl;
-    }
-    else {
-        std::cout << "Database " << connectionStr << " was opened" << std::endl;
-        dbOpened = true;
-    }
-    return dbOpened;
+    
+    std::string errMsg = "Db could not be opened\n";
+    
+    if (sqlite3_open_v2( connectionStr.c_str(), &db, SQLITE_ACCESS_READWRITE, nullptr ) != SQLITE_OK)
+        throw errMsg;   
 }
 
 void SQLiteDBDriver::close( void ) {
@@ -46,6 +42,7 @@ int SQLiteDBDriver::callback( void* db, int argc, char** colValues, char** colNa
 		std::cout << colNames[i] << ": " << colValues[i] ? colValues[i] : "null";
 	}
 	std::cout << std::endl;
+
 
 	return 0;
 }
