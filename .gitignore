@@ -13,7 +13,7 @@
 *.userprefs
 
 # Build results
-[Dd]ebug/
+# [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
@@ -328,8 +328,11 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-/.metadata/
-/TestDB/
+.metadata/
+.settings/
+.fuse*
+.cproject
+.project
 
 # Visual Studio Code generated folder
 .vscode
