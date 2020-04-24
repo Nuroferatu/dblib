@@ -31,6 +31,9 @@ int main() {
         dbDriver->execute( "insert into userData (FirstName)\n values (\"Marcin\");" );
         dbDriver->close();
     }
+    catch (std::runtime_error& error) {
+        std::cout << error.what() << std::endl;
+    }
     catch (std::string& errMsg) {
         std::cout << errMsg;
     }

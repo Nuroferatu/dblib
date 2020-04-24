@@ -13,6 +13,7 @@
 #include "dbdriver.h"
 #include "sqlitedbdriver.h"
 #include "mysqldbdriver.h"
+#include <stdexcept>
 
 using namespace stf;
 
@@ -21,7 +22,8 @@ std::unique_ptr<IDBDriver> DBDriver::getDriver( DBType type ) {
         case DBType::SQLITE: return std::make_unique<SQLiteDBDriver>();
         case DBType::MYSQL:  return std::make_unique<MySQLDBDriver>();
     }
-    //throw std::runtime_exception
+    throw std::runtime_error( "Invalid DBDriver type requested" );
+    return nullptr;
 }
 
 // vim: ts=4:sw=4:et:nowrap

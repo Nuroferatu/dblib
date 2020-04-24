@@ -23,13 +23,15 @@ SQLiteDBDriver::~SQLiteDBDriver() {
     std::cout << "SQLIteDBDriver::dTor" << std::endl;
 }
 
+// TODO: 
 bool SQLiteDBDriver::open( const std::string& connectionStr ) {
     if (sqlite3_open_v2( connectionStr.c_str(), &db, SQLITE_OPEN_READWRITE, nullptr ) != SQLITE_OK) {
         std::string errSqlite = sqlite3_errmsg( db );
         std::string errMsg = "###_Error_SQLite_Msg: ";
         errMsg.append( errSqlite ).append( "\n" );
-        throw errMsg;
+        throw std::runtime_error( errMsg );
     }
+    return true;
 }
 
 void SQLiteDBDriver::close( void ) {
@@ -58,7 +60,7 @@ void SQLiteDBDriver::execute( const std::string& exec_statement ) {
     if (nullptr != errSqlite) {
         std::string errMsg = "###_Error_SQLite_Msg: ";
         errMsg.append( errSqlite ).append( "\n" );
-        throw errMsg;
+        throw std::runtime_error( errMsg );
     }
 }
 // vim: ts=4:sw=4:et:nowrap
