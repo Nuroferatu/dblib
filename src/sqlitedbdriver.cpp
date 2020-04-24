@@ -24,13 +24,12 @@ SQLiteDBDriver::~SQLiteDBDriver() {
 }
 
 bool SQLiteDBDriver::open( const std::string& connectionStr ) {
-    std::string errMsg = "###_Error_SQLite_Msg: ";
     if (sqlite3_open_v2( connectionStr.c_str(), &db, SQLITE_OPEN_READWRITE, nullptr ) != SQLITE_OK) {
         std::string errSqlite = sqlite3_errmsg( db );
+        std::string errMsg = "###_Error_SQLite_Msg: ";
         errMsg.append( errSqlite ).append( "\n" );
         throw errMsg;
     }
-
 }
 
 void SQLiteDBDriver::close( void ) {
@@ -53,11 +52,11 @@ int SQLiteDBDriver::callback( void* db, int argc, char** colValues, char** colNa
 void SQLiteDBDriver::execute( const std::string& exec_statement ) {
     std::cout << "SQLIteDBDriver::execute " << std::endl;
 
-    std::string errMsg = "###_Error_SQLite_Msg: ";
     char* errSqlite = nullptr;
 
     sqlite3_exec( db, exec_statement.c_str(), callback, nullptr, &errSqlite );
     if (nullptr != errSqlite) {
+        std::string errMsg = "###_Error_SQLite_Msg: ";
         errMsg.append( errSqlite ).append( "\n" );
         throw errMsg;
     }
