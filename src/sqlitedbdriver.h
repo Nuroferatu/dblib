@@ -33,7 +33,7 @@ public:
 
     static int callback( void* db, int argc, char** colValues, char** colName );
 
-//private:
+    //private:
     sqlite3* db = nullptr;
 };
 

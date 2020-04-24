@@ -25,7 +25,7 @@ MySQLDBDriver::~MySQLDBDriver() {
     std::cout << "MySQLDBDriver::dTor" << std::endl;
 }
 
-bool MySQLDBDriver::open( const std::string& connectionStr) {
+bool MySQLDBDriver::open( const std::string& connectionStr ) {
     std::cout << "MySQLDBDriver::open" << std::endl;
     return true;
 }
@@ -34,8 +34,8 @@ void MySQLDBDriver::close( void ) {
     std::cout << "MySQLDBDriver::close" << std::endl;
 }
 
-void MySQLDBDriver::execute( const std::string& exec_statement ){
-	// do stuff here
+void MySQLDBDriver::execute( const std::string& exec_statement ) {
+    // do stuff here
 }
 // vim: ts=4:sw=4:et:nowrap
 /* EOF */
